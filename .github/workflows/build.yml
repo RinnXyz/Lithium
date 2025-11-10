@@ -1,56 +1,38 @@
-name: Android CI
+name: Build Android APK
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup JDK 17
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '17'
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-    - name: Accept Android SDK Licenses
-      run: yes | sdkmanager --licenses
+      - name: Build APK
+        run: |
+          chmod +x ./gradlew
+          ./gradlew assembleRelease --no-daemon
 
-    - name: Install SDK Build Tools + CMake + NDK
-      run: |
-        sdkmanager "build-tools;34.0.0" "platforms;android-34" "platform-tools"
-        sdkmanager "cmake;3.31.0" "ndk;26.3.11579264"
-
-    - name: Force use Build Tools 34.0.0
-      run: echo "sdk.dir=/usr/local/lib/android/sdk" > local.properties && echo "android.buildToolsVersion=34.0.0" >> gradle.properties
-
-    - name: Fix missing AIDL dependencies
-      run: |
-        mkdir -p engine/src/main/aidl/moe/shizuku/server
-        mkdir -p engine/src/main/aidl/rikka/parcelablelist
-        mkdir -p engine/src/main/aidl/android/os
-        echo "package moe.shizuku.server; interface IShizukuService {}" > engine/src/main/aidl/moe/shizuku/server/IShizukuService.aidl
-        echo "package rikka.parcelablelist; parcelable ParcelableListSlice;" > engine/src/main/aidl/rikka/parcelablelist/ParcelableListSlice.aidl
-        echo "package android.os; parcelable Environment;" > engine/src/main/aidl/android/os/Environment.aidl
-
-    - name: Grant execute permission for gradlew
-      run: chmod +x ./gradlew
-
-    - name: Build Release APK
-      run: ./gradlew assembleRelease --stacktrace --no-daemon
-
-    - name: Upload APK Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: Lithium-APK
-        path: app/build/outputs/apk/release/*.apk
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: |
+            **/build/outputs/apk/release/*.apk
+            **/build/outputs/apk/debug/*.apk
