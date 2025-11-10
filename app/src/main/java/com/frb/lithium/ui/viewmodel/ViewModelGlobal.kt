@@ -1,0 +1,10 @@
+package com.rinn.lithium.ui.viewmodel
+
+//IDK I'm just using it to make the code look compact
+class ViewModelGlobal(
+    val settingsViewModel: SettingsViewModel,
+    val appsViewModel: AppsViewModel,
+    val permissionViewModel: PermissionViewModel,
+    val adbViewModel: AdbViewModel,
+    val pluginViewModel: PluginViewModel
+)

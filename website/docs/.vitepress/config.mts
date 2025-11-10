@@ -1,0 +1,45 @@
+import { defineConfig } from "vitepress";
+
+// https://vitepress.dev/reference/site-config
+export default defineConfig({
+  base: "/LithiumManager/",
+  title: "LithiumManager",
+  description:
+    "LithiumManager is an Android application designed to provide deeper control over apps and the system.",
+  themeConfig: {
+    // https://vitepress.dev/reference/default-theme-config
+    nav: [
+      { text: "Guide", link: "/guide/what-is-lithium-manager" },
+      { text: "Plugin", link: "/plugin/what-is-plugin" },
+      {
+        text: "Download",
+        link: "https://github.com/RinnXyz/LithiumManager/releases",
+      },
+    ],
+
+    sidebar: [
+      {
+        text: "Guide",
+        items: [
+          {
+            text: "What is Lithium Manager?",
+            link: "/guide/what-is-lithium-manager",
+          },
+          { text: "User Manual", link: "/guide/user-manual" },
+          { text: "FAQ", link: "/guide/faq" },
+        ],
+      },
+      {
+        text: "Plugin",
+        items: [
+          { text: "What is Plugin?", link: "/plugin/what-is-plugin" },
+          { text: "Re-ignite (Reboot System)", link: "/plugin/re-ignite" },
+        ],
+      },
+    ],
+
+    socialLinks: [
+      { icon: "github", link: "https://github.com/RinnXyz/LithiumManager" },
+    ],
+  },
+});
