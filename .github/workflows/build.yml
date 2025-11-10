@@ -38,6 +38,7 @@ jobs:
       run: |
         mkdir -p engine/src/main/aidl/moe/shizuku/server
         mkdir -p engine/src/main/aidl/rikka/parcelablelist
+        mkdir -p engine/src/main/aidl/android/os
         echo "package moe.shizuku.server; interface IShizukuService {}" > engine/src/main/aidl/moe/shizuku/server/IShizukuService.aidl
         echo "package rikka.parcelablelist; parcelable ParcelableListSlice;" > engine/src/main/aidl/rikka/parcelablelist/ParcelableListSlice.aidl
         echo "package android.os; parcelable Environment;" > engine/src/main/aidl/android/os/Environment.aidl
