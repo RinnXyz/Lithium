@@ -34,7 +34,7 @@ class LithiumApplication : Engine() {
     lateinit var okhttpClient: OkHttpClient
 
     private fun init(context: Context) {
-        AxeronSettings.initialize(context)
+        LithiumSettings.initialize(context)
     }
 
     override fun onCreate() {
