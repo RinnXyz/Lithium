@@ -29,7 +29,7 @@ jobs:
         run: |
           yes | sdkmanager --licenses
           sdkmanager --update
-          sdkmanager --install "cmake;3.31.0" "ndk;29.0.13113456" "platforms;android-36" "build-tools;35.0.0"
+          sdkmanager --install "cmake;3.31.0" "ndk;29.0.13113456" "platforms;android-36" "build-tools;33.0.2"
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
           echo "cmake.dir=$ANDROID_SDK_ROOT/cmake/3.31.0" >> local.properties
           echo "ndk.dir=$ANDROID_SDK_ROOT/ndk/29.0.13113456" >> local.properties
